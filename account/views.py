@@ -35,7 +35,8 @@ def userLogin(request) :
         user = authenticate(username=username, password=password)
 
         if user is not None : 
-            return HttpResponse('Valid username nd password')
+            login(request, user)
+            return redirect('/')
         else : 
             messages.error(request, 'Invalid username/email or password')
             return redirect('/account/login/')
@@ -78,3 +79,11 @@ def userSignup(request) :
         
     else : 
         return render(request, "account/signup.html")
+
+
+def logoutuser(request) : 
+    if request.method == 'POST' : 
+        logout(request)
+        return redirect('/')
+    else : 
+        return redirect('/')

@@ -1,5 +1,6 @@
 
 from django.shortcuts import redirect
+from django.contrib.auth import logout, authenticate
 
 #   decorator function to check if the user is loggedin or not
 def isLoggedin(view_function) : 
