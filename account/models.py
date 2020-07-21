@@ -30,3 +30,12 @@ class UserProfile(models.Model) :
     def delete(self, *args, **kwargs) : 
         self.profile_image.delete()
         super().delete(*args, **kwargs)
+
+
+#   model for followers and following
+class Follower(models.Model) : 
+    user = models.ManyToManyField(User)
+
+
+    def __str__(self) : 
+        return self.user.username
