@@ -32,10 +32,3 @@ class UserProfile(models.Model) :
         super().delete(*args, **kwargs)
 
 
-#   model for followers and following
-class Follower(models.Model) : 
-    user = models.ManyToManyField(User)
-
-
-    def __str__(self) : 
-        return self.user.username
