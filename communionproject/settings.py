@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account.apps.AccountConfig',
     'pages.apps.PagesConfig',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

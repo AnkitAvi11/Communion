@@ -1,6 +1,8 @@
 from django.db import models
 
 from django.contrib.auth.models import User
+from django.utils.timezone import timezone, timedelta
+from datetime import datetime
 
 class UserProfile(models.Model) : 
 
@@ -11,6 +13,7 @@ class UserProfile(models.Model) :
     learning = models.TextField(blank=True)
     project_description = models.TextField(blank=True)
     available_for = models.TextField(blank=True)
+    show_email = models.BooleanField(default=False)
 
     def __str__(self) : 
         return self.user.username
@@ -32,3 +35,19 @@ class UserProfile(models.Model) :
         super().delete(*args, **kwargs)
 
 
+#   Model for creating relation between users if they follow
+class Follower(models.Model) : 
+
+    user_from = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='from_set')
+    user_to = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='to_set')
+    relation_date = models.DateTimeField(default=datetime.now())
+
+    def __str__(self) : 
+        return "{} follows {}".format(self.user_from, self.user_to)
+
+    def isFollowing(self, u_from, to) : 
+        if Follower.objects.filter(user_from=u_from, user_to = to).exists() : 
+            return True
+        else : 
+            return False
+        
