@@ -2,9 +2,11 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import Blog
+from django_summernote.admin import SummernoteModelAdmin
 
-class BlogAdmin(admin.ModelAdmin) : 
-    list_display = ('id', 'title', 'created_on', 'description', 'body')
+class BlogAdmin(SummernoteModelAdmin) : 
+    summernote_fields = ('body')
+    list_display = ('id', 'title', 'description', 'created_on')
     list_display_links = ('id', 'title')
 
 

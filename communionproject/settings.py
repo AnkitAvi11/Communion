@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'django.contrib.humanize',
     'blog.apps.BlogConfig',
+    'django_summernote'
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,5 @@ MESSAGE_TAGS = {
     messages.INFO : "info",
     messages.WARNING : "warning"
 }
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
