@@ -137,3 +137,13 @@ MESSAGE_TAGS = {
 }
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+
+#   summernote editor configs
+SUMMERNOTE_THEME = 'bs4'
+
+SUMMERNOTE_CONFIG = {
+    'summernote' : {
+        'width' : '100%'
+    }
+}
