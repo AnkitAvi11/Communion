@@ -5,5 +5,9 @@ from . import views
 urlpatterns = [
     path('all/', views.allBlogs, name='allblogs'),
     path('addblog/', views.addBlog, name='addblog'),
-    path('read/<slug:slug>/', views.viewBlog, name='read')
+    path('like/', views.likeBlog, name='likeblog'),
+
+    #   slug field always at the bottom
+    path('read/<slug:blog_id>/', views.viewBlog, name='read'),
+    path('edit/<slug:blog_title>/', views.editBlog, name='editblog')
 ]

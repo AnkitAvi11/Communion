@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import timezone, timedelta
 from datetime import datetime
+from django.db.models.signals import post_save
 
 class UserProfile(models.Model) : 
 
@@ -34,6 +35,14 @@ class UserProfile(models.Model) :
         self.profile_image.delete()
         super().delete(*args, **kwargs)
 
+    def countNotifications(self) : 
+        return Notifications.objects.filter(user=self.user).exclude(is_read=True).count()
+
+    def getNotifications(self) : 
+        notifications = Notifications.objects.filter(user=self.user).exclude(is_read=True).order_by('-time_created')
+        print(notifications)
+        return notifications[:5]
+
 
 #   Model for creating relation between users if they follow
 class Follower(models.Model) : 
@@ -50,4 +59,16 @@ class Follower(models.Model) :
             return True
         else : 
             return False
-        
+
+
+#   model for user notifications
+class Notifications(models.Model) : 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    description = models.CharField(max_length=200, blank=True, null=True)
+    link = models.URLField(default=None, blank=True, null=True)
+    time_created = models.DateTimeField(default=datetime.now())
+    is_read = models.BooleanField(default=False)
+
+    def __str__(self) : 
+        return self.title

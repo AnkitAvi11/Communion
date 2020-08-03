@@ -20,3 +20,13 @@ class Blog(models.Model) :
 
     def is_recent(self) : 
         return True if self.created_on >= (timezone.now()-timedelta(days=2)) else False
+
+    #   overriding the save method to delete old cover images
+    def save(self, *args, **kwargs) : 
+        try : 
+            blog = Blog.objects.get(id=self.id)
+            if blog.cover_image != self.cover_image : 
+                blog.cover_image.delete()
+        except : 
+            pass
+        super().save(*args, *kwargs)
