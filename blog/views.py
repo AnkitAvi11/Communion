@@ -57,7 +57,7 @@ def addBlog(request) :
         from datetime import datetime
         created_on = datetime.now()
         try : 
-            Blog.objects.create(
+            blog = Blog(
                 user = request.user,
                 title = title,
                 slug_title = slug,
@@ -67,11 +67,12 @@ def addBlog(request) :
                 created_on = created_on,
                 published = True
             )
+            blog.save()
             messages.success(request, 'Blog posted successfully')
             return redirect('/blog/addblog')
         except Exception as e : 
-            messages.error(request, e.message)
-            return render(request, 'pages/addblog.html', {})
+            messages.error(request, e)
+            return render(request, 'pages/addblog.html', {"form" : AddBlogForm})
     else : 
         return render(request, 'pages/addblog.html', {"form" : AddBlogForm})
 
