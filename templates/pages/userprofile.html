@@ -1,0 +1,149 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block title%}| {{user_data}} {%endblock%}
+{%load humanize%}
+
+{%block content%}
+    <div class="container" style="margin-top: 20px;">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-sm-4"><div class="profilepic" style="width:calc(8.2vw + 50px);height:calc(8.2vw + 50px);background:url('{{user_data.userprofile.profile_image.url}}');border-radius:50%;background-position:center;background-size:cover;"></div></div>
+                    <div class="col-sm-8">
+                        <h2>
+                            {{user_data.first_name}} {{user_data.last_name}} &nbsp;
+                            {%if user_data.id == request.user.id%}
+                            <a href="{%url 'usersetting'%}" style="font-size: 20px;">
+                                <span class="badge badge-success"><i class="far fa-edit"></i> Edit profile</span>
+                            </a>
+                            {%endif%}
+                        </h2>
+                        <p>
+                            <i class="far fa-envelope-open"></i>
+                            {%if not request.user.is_authenticated %}
+                                Login to view the email address
+                            {%else%}
+                                {%if user_data.userprofile.show_email or user_data == request.user %}
+                                {{user_data.email}}
+                                {%else%}
+                                User has hidden the email address
+                                {%endif%}
+                            {%endif%}
+                        </p>
+                        <p style="color: grey;">
+                            {%if user_data.userprofile.summary %}
+                            {{user_data.userprofile.summary}}
+                            {%else%}
+                            Error 404 ! No bio found
+                            {%endif%}
+                        </p>
+                        
+                        <p><i class="far fa-clock"></i> Joined on {{user_data.date_joined | naturalday}}</p>
+                        <p style="color: grey;">
+                            <span>{{following.count|intword}} Following</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span>{{followers.count|intword}} Followers</span>
+                        </p>
+
+                        <p>
+                            {%if user.is_authenticated and user_data != request.user%}
+                                {%csrf_token%}
+                                {%if status %}
+                                    <button class="btn btn-success" id="follow" user_id={{user_data.id}}>Unfollow</button>
+                                {%else%}
+                                <button class="btn btn-success" id="follow" user_id={{user_data.id}}>Follow</button>
+                                {%endif%}
+                            {%endif%}
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2"></div>
+
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div style="margin-top: 20px;">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Blogs</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Discussions</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Projects</a>
+                        </li>
+                      </ul>
+                      <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div style="text-align: center;margin-top:20px">
+                                {%if user_data.blog_set.all%}
+                                    {%for blog in user_data.blog_set.all%}
+                                    <div class="card" style="max-width: 100%;text-align:left;margin-bottom:10px">
+                                        <div class="row no-gutters">
+                                          
+                                          <div class="col-md-{%if blog.cover_image%}8{%else%}12{%endif%}">
+                                            <div class="card-body">
+                                              <h5 class="card-title">
+                                                  {{blog.title}}
+                                              </h5>
+                                              <p class="card-text" style="color: grey;">{{blog.description}}</p>                                            
+                                                <p class="card-text">
+                                                    <i class="far fa-clock"></i> {{blog.created_on | naturaltime}}
+                                                </p>
+                                                <p>
+                                                    <a href="{%url 'read' blog.slug_title%}"><i class="far fa-eye"></i> view blog  -></a>
+                                                </p>
+                                                <p>
+                                                    {%if user_data == request.user%}
+                                                <a href="{%url 'editblog' blog.slug_title%}" class="btn btn-outline-primary"><i class="far fa-edit"></i> Edit</a>
+                                                <a href="#" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i> Delete</a>
+                                                {%endif%}
+                                                </p>
+                                            </div>
+            
+                                          </div>
+                                          {%if blog.cover_image%}
+                                          <div class="col-md-4">
+                                            <img src="{{blog.cover_image.url}}" class="card-img" alt="...">
+                                          </div>
+                                          {%endif%}
+                                        </div>
+                                    </div>
+                                    {%endfor%}
+                                {%else%}
+                                <img src="{%static 'images/blank.svg'%}" alt="" style="width:50%">
+                               <br><br>
+                               <h3>No blogs found</h3>
+                                {%endif%}
+                            </div>
+                            
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div style="text-align: center;margin-top:20px">
+                                <img src="{%static 'images/404.svg'%}" alt="" style="width:50%">
+                                <br><br>
+                                <h3>No Discussions</h3>
+                             </div>
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <div style="text-align: center;margin-top:20px">
+                                <img src="{%static 'images/none.svg'%}" alt="" style="width:45%">
+                                <br><br>
+                                <h3>No Projects</h3>
+                             </div>
+                        </div>
+                      </div>
+                </div>
+
+            </div>
+
+            <div class="col-sm-2"></div>
+        </div>
+    </div>
+{%endblock%}
+
+{%block bodyscript%}
+    <script src="{%static 'js/follow.js'%}"></script>
+{%endblock%}

@@ -1,0 +1,258 @@
+{%load static%}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+
+    <!-- Fontawesome Icons -->
+    <script src="https://kit.fontawesome.com/595d13cf2d.js" crossorigin="anonymous"></script>
+
+    <title>Communion - Elucidating With Knowledge</title>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <section id="header">
+        <div class="container">
+            <header class="head my-3">
+                <nav class="navbar navbar-expand-md navbar-light head__custom-nav">
+                    <a class="navbar-brand d-flex align-items-center" href="#">
+                        <img src="{%static 'images/logo.png'%}" alt="website logo">
+                        <span>Communion</span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                        MENU
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Feeds
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{%url 'allblogs'%}">Blogs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Discussions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="intern.html">Projects</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{%url 'login'%}">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{%url 'signup'%}">Signup</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">More</a>
+                            </li>
+                            <!-- <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    More
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Course Resources</a>
+                                    <a class="dropdown-item" href="#">Job/Internships</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Join Now</a>
+                                </div>
+                            </li> -->
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+        </div>
+        <div class="container">
+            <div class="row custom-section d-flex align-items-center">
+                <div class="col-12 col-lg-4">
+                    <h3>Uniting Developers</h3>
+                    <p class="text-small font-weight-light">It is not the success which defines your story but the
+                        obstacles
+                        which you overcome</p>
+                    <button type="button" class="btn btn-outline-primary">Join Now</button>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <img src="{%static 'images/banner.png'%}" alt="Communion">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Header Section Ends -->
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="text-center">
+                <h3>About Us</h3>
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <p class="lead text-muted mt-2">Communion is the place where developers share their innovations,
+                            ideas, queries, and whatnot. We
+                            bridge the gap between the developers by helping them grow their required skills.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about mt-5">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="box text-center">
+                            <div class="icon d-flex align-items-end">
+                                <img src="{%static 'icons/chat.svg'%}" alt="..." class="img-fluid">
+                            </div>
+                            <h3>Learn</h3>
+                            <p class="text-small font-weight-light"> People who love to learn, share and contribute.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="box text-center">
+                            <div class="icon d-flex align-items-end"><img src="{%static 'icons/code.svg'%}" alt="..."
+                                    class="img-fluid"></div>
+                            <h3 class="h4">Code</h3>
+                            <p class="text-small font-weight-light">We are here to transform the world with code.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="box text-center">
+                            <div class="icon d-flex align-items-end"><img src="{%static 'icons/goal.svg'%}" alt="..."
+                                    class="img-fluid"></div>
+                            <h3 class="h4">Achieve</h3>
+                            <p class="text-small font-weight-light">Make your milestones a part of our community's goal.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section Ends -->
+
+    <!-- CTA Section -->
+    <section id="CTA">
+        <div class="container text-center text-lg-left">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h2 class="divider-heading">Curious what next ? </h2>
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <p class="lead divider-subtitle mt-2 text-muted">We are creating something big. <br> Stay
+                                tuned with us and be a part of Communion's Journey.</p>
+                        </div>
+                    </div><a href="#" class="btn btn-primary">Join Community</a>
+                </div>
+                <div class="col-lg-5 mt-5 mt-lg-0"><img src="assets/images/f.png" alt=""
+                        class="divider-image img-fluid"></div>
+            </div>
+        </div>
+    </section>
+    <!-- CTA Section -->
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="row d-flex align-items-center">
+                <div class="text col-lg-6 order-2 order-lg-1">
+                    <div class="icon"><img src="{%static 'icons/hourglass.svg'%}" alt="..." class="img-fluid"></div>
+                    <h4>Who are We?</h4>
+                    <p class="text-small font-weight-light">We are the developers community who love to play with code
+                        and build some cool stuffs. </p>
+                </div>
+                <div class="image col-lg-6 order-1 order-lg-2"><img
+                        src="https://d19m59y37dris4.cloudfront.net/landy/1-0/img/feature-1.png" alt="..."
+                        class="img-fluid"></div>
+            </div>
+            <div class="row d-flex align-items-center">
+                <div class="image col-lg-6"><img src="https://d19m59y37dris4.cloudfront.net/landy/1-0/img/feature-2.png"
+                        alt="..." class="img-fluid"></div>
+                <div class="text col-lg-6">
+                    <div class="icon"><img src="{%static 'icons/medal.svg'%}" alt="..." class="img-fluid"></div>
+                    <h4>Our Mission</h4>
+                    <p class="text-small font-weight-light">We strive to make a better place for all the developers out
+                        there who need some sort of guidance.</p>
+                </div>
+            </div>
+            <div class="row d-flex align-items-center">
+                <div class="text col-lg-6 order-2 order-lg-1">
+                    <div class="icon"><img src="{%static 'icons/cup.svg'%}" alt="..." class="img-fluid"></div>
+                    <h4>Our Next Milestone</h4>
+                    <p class="text-small font-weight-light">We are looking ahead to create a better place for all our
+                        members of the community.</p>
+                </div>
+                <div class="image col-lg-6 order-1 order-lg-2"><img
+                        src="https://d19m59y37dris4.cloudfront.net/landy/1-0/img/feature-3.png" alt="..."
+                        class="img-fluid"></div>
+            </div>
+        </div>
+    </section>
+    <!-- Features Section -->
+
+    <!-- Community Section -->
+    <section id="community">
+        <div class="container">
+            <div class="text-center">
+                <h2>Join Our Community Now</h2>
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <p class="lead text-muted mt-2">Let's contribute to the community</p>
+                    </div>
+                </div>
+            </div>
+            <div class="clients mt-5">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <a href="#" target="_blank"><img src="{%static 'icons/telegram.svg'%}" alt=""
+                                class="client-image img-fluid">
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="#" target="_blank">
+                            <img src="{%static 'icons/wp.svg'%}" alt="" class="client-image img-fluid">
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="#" target="_blank">
+                            <img src="{%static 'icons/discord.svg'%}" alt="" class="client-image img-fluid">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Community Section Ends -->
+    {%include 'partials/footer.html'%}
+
+    <script>
+        function myFunction() {
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+        }
+    </script>
+
+    <!-- Script Files -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <!-- Script Files Ends -->
+</body>
+
+</html>

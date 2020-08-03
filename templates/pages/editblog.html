@@ -1,0 +1,60 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block title%}| Edit blog {%endblock%}
+{%block content%}
+    <div class="container" style="margin-top: 20px;">
+        <div class="row">
+            <div class="col-sm-9">
+                <form action="{%url 'editblog' blog.slug_title%}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {%include 'partials/formeror.html'%}
+                    <div class="form-group">
+                        <label for="title">Title for your new post</label>
+                        <input type="text" name="title" id="title" placeholder="New post title here" class="form-control" required="required" autofocus value="{{blog.title}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description for your blog</label>
+                        <textarea name="description" id="description" cols="30" rows="2" class="form-control" placeholder="A small description for your blog" style="background-color: transparent;"  >{{blog.description}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="cover">Add a cover image</label>
+                        <input type="file" name="cover" id="cover" class="btn btn-secondary" style="width: 100%;" placeholder="Choose a cover image" value="{{blog.cover_image}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Write your content here </label>
+                        {{form.body}}
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="PUBLISH" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-3" style="margin-top: 20px;position:sticky;top:100px">
+                <div style="position:sticky;top:100px">
+                    <h3>Editor guides</h3>
+                    <p>To insert code snippet follow the following guide</p>
+                    <p> &lt;code&gt; Your code here &lt;/code&gt;</p>
+                    <p>
+                        Output : <br>
+                        <code>
+                            console.log('Hello world')
+                            print('Hello world in python')
+                            cout<<"Hello world in c++";
+                        </code>
+                    </p>
+                    <b>
+                        Or an alternative which is the easiest so far that you can simply copy the code from your editor and let us handle the rest.
+                    </b>
+                </div>
+            </div>
+        </div>
+    </div>
+{%endblock%}
+{%block headstyles%}    
+    <style>
+        iframe{
+            border-radius: 5px;
+            background-color: transparent;
+        }
+    </style>
+{%endblock%}

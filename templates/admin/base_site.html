@@ -1,0 +1,30 @@
+{%extends 'admin/base.html'%}
+{%load static%}
+{%block title%}Communion | Admin{%endblock%}
+{%block branding%}
+    <a href="/admin"><h1 id="head" style="color: white;font-weight:bolder;padding:15px;">Communion (Admin)</h1></a>
+{%endblock%}
+
+{%block extrastyle%}
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+    <style>
+        div#header{
+            background: darkcyan;
+        }
+        .module caption {
+            background: darkcyan;
+        }
+        div.breadcrumbs{
+            background: lightblue;
+        }
+        div.breadcrumbs {
+            color: black;
+        }
+        div.breadcrumbs a {
+            color: black;
+        }
+        div.breadcrumbs a:hover {
+            color: orange;
+        }
+    </style>
+{%endblock%}

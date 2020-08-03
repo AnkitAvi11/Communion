@@ -1,0 +1,99 @@
+{%load static%}
+{%load humanize%}
+{%block headscript%}
+<script src="https://kit.fontawesome.com/8f4be98881.js" crossorigin="anonymous"></script>
+{%endblock%}
+<nav class="navbar navbar-expand-lg navbar-light" style="border-bottom: 1px solid lightgrey;background:white;position:sticky;top:0px;z-index:999">
+    <div class="container">
+        <a class="navbar-brand" href="{%url 'home'%}" style="font-size: 25px;">
+            <img src="{%static 'images/logo.png'%}" width="25px" class="d-inline-block align-top" alt="" loading="lazy" style="margin-top:5px;">
+            <span style="color: #008bc2;">Communion</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarColor03">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a href="#" class="nav-link">Feed</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link {%if 'blog' in request.path%}active{%endif%}" href="{%url 'allblogs'%}">Blogs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="far fa-comment"></i> Discussions</a>
+            </li>
+            
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">More </a>
+                <div class="dropdown-menu">
+                  <a href="#" class="dropdown-item"> <i class="fas fa-search"></i> Search</a>
+                  <a class="dropdown-item" href="#">Recent job listings</a>
+                  <a class="dropdown-item" href="#">Internship listings</a>
+                  <a class="dropdown-item" href="#">Study materials and courses</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Request resources</a>
+                  
+                </div>
+            </li>
+            
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            
+            {%if user.is_authenticated %}
+            <li class="nav-item dropdown" style="margin-right: 20px;">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"></i> <span class="badge badge-warning">{{user.userprofile.countNotifications}}</span>  </a>
+                <div class="dropdown-menu">
+                    {%if user.userprofile.countNotifications <= 0%}
+                    <a href="#" class="dropdown-item">You are all caught up</a>
+                    {%else%}
+                        {%for notification in user.userprofile.getNotifications %}
+                        <a href="{{notification.link}}" class="dropdown-item" style="font-size: 13px;border-bottom:1px solid lightgrey">
+                            <span style="font-weight: bolder;">{{notification}}</span>
+                            <br>
+                            {{notification.time_created|naturaltime}}
+                        </a>
+                        {%endfor%}
+                    {%endif%}
+                    <a href="" class="dropdown-item" style="font-size: 13px;margin-top:10px;color:dodgerblue">View all</a>
+                </div>
+                
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> {{user.username}} </a>
+                <div class="dropdown-menu" style="min-width:200px;">
+                  <a href="{%url 'viewuser' user%}" class="dropdown-item">
+                    <div style="width: 40px;height:40px;border-radius:50%;background:url({{user.userprofile.profile_image.url}});background-position:center;background-size:cover;">
+                    </div>
+                    <h6 style="margin-top:10px"><small>@{{user}}</small></h6>
+                    
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="{%url 'addblog'%}" class="dropdown-item">Write a blog</a>
+                  <a href="#" class="dropdown-item">Reading list</a>
+                  <a href="{%url 'usersetting'%}" class="dropdown-item">Settings</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Request resources</a>
+                  <a href="#" class="dropdown-item">Help</a>
+                  <a href="#" class="dropdown-item">About</a>
+                  <div class="dropdown-divider"></div>
+                  <a href="#" class="dropdown-item">
+                      <form action="{%url 'logoutuser'%}" method="post">{%csrf_token%} <input type="submit" value="Logout" class="dropdown-item"> </form>
+                  </a>
+                </div>
+            </li>
+            {%else%}
+            <li class="nav-item {%if 'login' in request.path%}active{%endif%}">
+                <a class="nav-link" href="{%url 'login'%}">Login</a>
+            </li>
+            <li class="nav-item {%if 'signup' in request.path%}active{%endif%}">
+                <a class="nav-link" href="{%url 'signup'%}">Signup</a>
+            </li>
+            {%endif%}
+        </ul>
+        
+        </div>
+        </div>
+  </nav>

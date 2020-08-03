@@ -1,0 +1,120 @@
+{%extends 'base.html'%}
+{%load humanize%}
+{%block title%}| Blogs {%endblock%}
+{%block content%}
+    <div class="container" style="margin-top: 20px;margin-bottom:20px">
+        <div class="row">
+
+            <!--
+                All blogs will be displayed here
+            -->
+
+            <div class="col-sm-8">
+
+                {%if cover%}
+                <div class="card" style="width: 100%;margin-bottom:10px;">
+                  <div id="blog_cover" style="background: url({{cover.cover_image.url}});background-size:cover;background-position:center;width:100%;height:200px;"></div>
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <a href="{%url 'read' cover.slug_title%}" style="color: black;">{{cover.title}}</a>
+                    </h5>
+                    <p class="card-text" style="color: grey;;">{{cover.description}}</p>
+                    <p class="card-text">By : <a href="{%url 'viewuser' cover.user%}">{{cover.user}}</a></p>
+                    
+                  </div>
+                </div>
+                {%endif%}
+
+                {%for blog in blogs%}
+                <!--{%url 'read' blog.slug_title%}-->
+                <div class="card" style="max-width: 100%;margin-bottom:10px">
+                    <div class="row no-gutters">
+                      
+                      <div class="col-md-{%if blog.cover_image%}8{%else%}12{%endif%}">
+                        <div class="card-body">
+                          <h5 class="card-title">
+                            <a href="{%url 'read' blog.slug_title%}" >{{blog.title}}</a>
+                          </h5>
+                          <p class="card-text" style="color:grey">{{blog.description}}</p>
+                          <p class="card-text">By : <a href="{%url 'viewuser' blog.user%}">{{blog.user}}</a></p>
+                          <p class="card-text">
+                            {%if blog.is_recent%}
+                            <i class="far fa-clock"></i> {{blog.created_on | naturaltime}}
+                            {%else%}
+                            <i class="far fa-clock"></i> {{blog.created_on | naturalday}}
+                            {%endif%}
+                          </p>
+                          
+                        </div>
+                      </div>
+                      {%if blog.cover_image%}
+                      <div class="col-md-4">
+                        <img src="{{blog.cover_image.url}}" class="card-img" alt="...">
+                      </div>
+                      {%endif%}
+                    </div>
+                </div>
+                {%endfor%}
+                <div style="text-align: center;">
+                  <nav aria-label="...">
+                    <ul class="pagination justify-content-center">
+
+                      {%if blogs.has_previous%}
+                      <li class="page-item">
+                        <a class="page-link" href="?page={{blogs.previous_page_number}}" tabindex="" aria-disabled="true">Previous</a>
+                      </li>
+                      {%else%}
+                      <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                      </li>
+                      {%endif%}
+                      <li class="page-item" aria-current="page">
+                        <a class="page-link" href="#">{{blogs.number}} <span class="sr-only">(current)</span></a>
+                      </li>
+                      {%if blogs.has_next%}
+                      <li class="page-item">
+                        <a class="page-link" href="?page={{blogs.next_page_number}}">Next</a>
+                      </li>
+                      {%else%}
+                      <li class="page-item disabled">
+                        <a class="page-link" href="#">Next</a>
+                      </li>
+                      {%endif%}
+                      
+                    </ul>
+                  </nav>
+                </div>
+            </div>
+
+            <!--
+                Some recent discussions or posts here
+            -->
+            <div class="col-sm-4">
+                <div style="position:sticky;top:80px;">
+                  <div class="card">
+                                       
+                    <div class="card-body">
+                      <img src="/static/images/discussion.svg/" alt="" style="width: 100%;">
+                      <h5 style="margin-top: 20px;">Trending discussions</h5>
+                    </div>                  
+
+                    <ul class="list-group list-group-flush" style="font-size: 15px;">
+                      <li class="list-group-item">
+                        Why is AWS preferred over Azure ?
+                      </li>
+                      <li class="list-group-item">
+                        How to become a better developer and programmer ?
+                      </li>
+                    </ul>
+
+                    <div class="card-body">
+                      <a href="" class="card-link">View all -></a>
+                    </div>
+                                        
+                  </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{%endblock%}

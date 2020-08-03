@@ -1,0 +1,132 @@
+{%extends 'base.html'%}
+{%block title%}| Settings{%endblock%}
+{%block content%}
+    <div class="container" style="margin-top: 20px;">
+        <div>
+            {%include 'partials/formeror.html'%}
+        </div>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Profile setting</a>
+              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Email setting</a>
+              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Password </a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-sm-8" >
+                        <h3>User profile setting</h3>
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {%csrf_token%}
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" id="username" disabled="disabled" value="{{user.username}}" class="form-control">
+                            </div>
+                            <div class="form-group form-row">
+                                <div class="col-sm-6">
+                                    <label for="fname">First name</label>
+                                    <input type="text" name="fname" id="fname" class="form-control" value={{user.first_name}} required="required">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="lname">Last name</label>
+                                    <input type="text" name="lname" id="lname" class="form-control" value={{user.last_name}} required="required">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profile_image">Profile image</label>
+                                <p>Currently : <a href="{{user.userprofile.profile_image.url}}">{{user.userprofile.profile_image.url}}</a></p>
+                                <input type="file" name="profile_image" id="profile_image" class="btn btn-secondary">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="summary">Bio (Summary)</label>
+                                <textarea name="summary" id="summary" cols="30" rows="3" class="form-control">{{user.userprofile.summary}}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="skills">Skills</label>
+                                <textarea name="skills" id="skills" cols="30" rows="3" class="form-control">{{user.userprofile.skills}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="learning">Learning </label>
+                                <textarea name="learning" id="learning" cols="30" rows="3" class="form-control">{{user.userprofile.learning}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="project">Project description</label>
+                                <textarea name="project" id="project" cols="30" rows="3" class="form-control">{{user.userprofile.project_description}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="available">Available for</label>
+                                <textarea name="available" id="available" cols="30" rows="3" class="form-control">{{user.userprofile.available_for}}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" value="SAVE CHANGES" class="btn btn-info">
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="profilepic" style="width:calc(8.2vw + 50px);height:calc(8.2vw + 50px);background:url('{{user.userprofile.profile_image.url}}');border-radius:50%;background-position:center;background-size:cover;margin:auto;"></div>
+                        <div style="margin-top: 20px;">
+                            <a href="{%url 'viewuser' user%}" class="btn" style="width: 100%;">View profile</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <!--
+                Profile setting ends here
+            -->
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <h3 style="margin-top: 30px;">Email setting</h3>
+                <form action="{%url 'emailsetting'%}" method="post">
+                    {%csrf_token%}
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" name="email" id="email" class="form-control" disabled="disabled" value="{{user.email}}">
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="customSwitch1" {%if user.userprofile.show_email%}checked{%endif%} name='show_email'>
+                            <label class="custom-control-label" for="customSwitch1" name='show_e'>Show email address on your profile</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="SAVE CHANGES" class="btn btn-outline-primary">
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <h3 style="margin-top: 30px;">Change password</h3>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <form action="{%url 'changepassword'%}" method="post">
+                            {%csrf_token%}
+                            <div class="form-group">
+                                <div>
+                                    <label for="cpassword">Current password</label>
+                                    <input type="password" name="cpassword" id="cpassword" class="form-control" required="required">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password1">New password</label>
+                                <input type="password" name="password1" id="password1" class="form-control" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label for="password2">Confirm new password</label>
+                                <input type="password" name="password2" id="password2" class="form-control" required="required">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="CHANGE PASSWORD" class="btn btn-info">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{%endblock%}
