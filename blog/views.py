@@ -24,7 +24,7 @@ def allBlogs(request) :
 
     cover = blogs.exclude(cover_image__exact="").exclude(cover_image__isnull=True)
 
-    paginator = Paginator(blogs, 20)
+    paginator = Paginator(blogs, 10)
     page = request.GET.get('page')
     paged_blogs = paginator.get_page(page)
 
@@ -148,3 +148,10 @@ def editBlog(request, blog_title) :
             'pages/editblog.html',
             {"blog" : blog, "form" : form}
         )
+
+#   method view to delete a particular post of the user
+@login_required(login_url = '/account/login/')
+def deleteBlog(request, blog_title) : 
+    blog = Blog.objects.get(user=request.user, slug_title__exact = blog_title)
+    blog.delete()
+    return redirect('/@{}/'.format(request.user.username))

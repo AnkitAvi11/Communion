@@ -9,5 +9,6 @@ urlpatterns = [
 
     #   slug field always at the bottom
     path('read/<slug:blog_id>/', views.viewBlog, name='read'),
-    path('edit/<slug:blog_title>/', views.editBlog, name='editblog')
+    path('edit/<slug:blog_title>/', views.editBlog, name='editblog'),
+    path('delete/<slug:blog_title>/', views.deleteBlog, name='deleteblog'),
 ]

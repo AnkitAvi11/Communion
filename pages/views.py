@@ -17,12 +17,14 @@ def viewUser(request, username) :
         following = Follower.objects.filter(user_from__username=username)
         followers = Follower.objects.filter(user_to__username=username)
 
+        blogs = user.blog_set.all().order_by('-created_on')
+
         if request.user.is_authenticated : 
             follow_status = True if Follower.objects.filter(user_from=request.user, user_to__username=username).exists() else False
         else :
             follow_status = False
     
-        return render(request, 'pages/userprofile.html', {"user_data" : user, "following": following, "followers" : followers, "status" : follow_status})
+        return render(request, 'pages/userprofile.html', {"user_data" : user, "following": following, "followers" : followers, "status" : follow_status, "blogs" : blogs})
     else : 
         raise Http404()
 

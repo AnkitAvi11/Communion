@@ -30,3 +30,12 @@ class Blog(models.Model) :
         except : 
             pass
         super().save(*args, *kwargs)
+
+
+#   blog comments model
+# class BlogComments (models.Model) : 
+#     blog = models.ForeignKey(Blog, related_name='blog_related')
+#     user = models.ForeignKey(Us)
+    
+#     def __str__(self) : 
+#         pass

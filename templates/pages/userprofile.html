@@ -77,9 +77,12 @@
                       </ul>
                       <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <div style="text-align: center;margin-top:20px">
-                                {%if user_data.blog_set.all%}
-                                    {%for blog in user_data.blog_set.all%}
+                            <div style="text-align: center;margin-top:20px" id="cardsHolder">
+                                
+                                {%if blogs%}
+
+                                    {%for blog in blogs%}
+                                    
                                     <div class="card" style="max-width: 100%;text-align:left;margin-bottom:10px">
                                         <div class="row no-gutters">
                                           
@@ -97,8 +100,11 @@
                                                 </p>
                                                 <p>
                                                     {%if user_data == request.user%}
-                                                <a href="{%url 'editblog' blog.slug_title%}" class="btn btn-outline-primary"><i class="far fa-edit"></i> Edit</a>
-                                                <a href="#" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i> Delete</a>
+                                                
+                                                <form action="{%url 'deleteblog' blog.slug_title %}" method="get" id="deleteform">
+                                                    <a href="{%url 'editblog' blog.slug_title%}" class="btn btn-outline-primary"><i class="far fa-edit"></i> Edit</a>
+                                                    <input type="submit" value="Delete " class="btn btn-outline-danger">
+                                                </form>
                                                 {%endif%}
                                                 </p>
                                             </div>
@@ -146,4 +152,22 @@
 
 {%block bodyscript%}
     <script src="{%static 'js/follow.js'%}"></script>
+    <script>
+        let cardsHolder = document.getElementById('cardsHolder');
+        cardsHolder.addEventListener('click', function(e){
+            
+            let target = e.target;
+            let type = target.getAttribute('type');
+            if (type === 'submit') {
+                e.preventDefault();
+                let parentForm = target.parentElement;
+                let flag = confirm("Do you really want to delete this blog ? ");
+                if (flag) {
+                    parentForm.submit();
+                }
+            }
+
+        }, false);
+        
+    </script>
 {%endblock%}
