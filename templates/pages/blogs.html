@@ -12,7 +12,7 @@
             <div class="col-sm-8">
 
                 {%if cover%}
-                <div class="card" style="width: 100%;margin-bottom:10px;">
+                <div class="card" style="width: 100%;margin-bottom:10px;border:none;box-shadow: 0px 0px 10px rgba(218, 218, 218, .4)">
                   <div id="blog_cover" style="background: url({{cover.cover_image.url}});background-size:cover;background-position:center;width:100%;height:200px;"></div>
                   <div class="card-body">
                     <h5 class="card-title">
@@ -27,16 +27,23 @@
 
                 {%for blog in blogs%}
                 <!--{%url 'read' blog.slug_title%}-->
-                <div class="card" style="max-width: 100%;margin-bottom:10px">
+                <div class="card blog-card" style="max-width: 100%;margin-bottom:10px">
+
+                    
+
                     <div class="row no-gutters">
                       
                       <div class="col-md-{%if blog.cover_image%}8{%else%}12{%endif%}">
                         <div class="card-body">
                           <h5 class="card-title">
-                            <a href="{%url 'read' blog.slug_title%}" >{{blog.title}}</a>
+                            <a href="{%url 'read' blog.slug_title%}" style="color: black;">{{blog.title}}</a>
                           </h5>
                           <p class="card-text" style="color:grey">{{blog.description}}</p>
-                          <p class="card-text">By : <a href="{%url 'viewuser' blog.user%}">{{blog.user}}</a></p>
+                          <p class="card-text" id="user_hover_link" style="display: inline-block;">By : <a href="{%url 'viewuser' blog.user%}">{{blog.user}}</a></p>
+                          <div class="user_hover" style="height:auto;width:150px;position:absolute;z-index:200;bottom:90px;padding:10px;border:1px solid lightgrey;background:white;border-radius:8px;text-align:center;">
+                            <div class="hover_image" style="width: 60px;height:60px;border-radius:50;background:url('{{blog.user.userprofile.profile_image.url}}');margin:auto;background-size:cover;background-position:center;border-radius:50%;"></div>
+                            <span><i>{{blog.user.first_name}} {{blog.user.last_name}}</i></span>
+                          </div>
                           <p class="card-text">
                             {%if blog.is_recent%}
                             <i class="far fa-clock"></i> {{blog.created_on | naturaltime}}
@@ -91,7 +98,7 @@
             -->
             <div class="col-sm-4">
                 <div style="position:sticky;top:80px;">
-                  <div class="card">
+                  <div class="card" style="border-radius: 0;border:none;box-shadow: 0px 0px 10px rgba(218, 218, 218, .4)">
                                        
                     <div class="card-body">
                       <img src="/static/images/discussion.svg/" alt="" style="width: 100%;">
@@ -117,4 +124,17 @@
 
         </div>
     </div>
+{%endblock%}
+
+{%block headstyles%}
+    <style>
+      p#user_hover_link:hover + .user_hover{
+        transform: scale(1);
+      }
+      .user_hover {
+        transform: scale(0);
+        transform-origin: left bottom;
+        transition: all .2s ease-in-out;
+      }
+    </style>
 {%endblock%}
