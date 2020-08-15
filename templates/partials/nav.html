@@ -49,14 +49,18 @@
                     <a href="#" class="dropdown-item">You are all caught up</a>
                     {%else%}
                         {%for notification in user.userprofile.getNotifications %}
-                        <a href="#" class="dropdown-item" style="font-size: 13px;border-bottom:1px solid lightgrey">
+                        <a href="{{notification.link}}" class="dropdown-item" style="font-size: 13px;border-bottom:1px solid lightgrey">
                             <span style="font-weight: bolder;">{{notification}}</span>
                             <br>
                             {{notification.time_created|naturaltime}}
                         </a>
                         {%endfor%}
                     {%endif%}
-                    <a href="" class="dropdown-item" style="font-size: 13px;margin-top:10px;color:dodgerblue">View all</a>
+                    <div class="dropdown-item">
+                        <a href="" style="font-size: 13px;margin-top:10px;color:dodgerblue">View all</a>
+                        &nbsp;&nbsp;
+                        <a href="" style="font-size: 13px;margin-top:10px;color:dodgerblue">Mark all as read</a>
+                    </div>                    
                 </div>
                 
             </li>

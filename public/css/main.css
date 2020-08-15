@@ -4,14 +4,10 @@ body {
 }
 
 div.blog-card {
-  border-radius: 0;
-  border: none;
-  border-left: 5px solid #008bc2;
-  box-shadow: 0px 0px 10px rgba(218, 218, 218, .4);
   transition: all .3s ease-in-out;
 }
 
 div.blog-card:hover {
-  
+  box-shadow: 0px 0px 10px rgba(218, 218, 218, .4);
   transform: scale(1.02);
 }

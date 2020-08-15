@@ -23,3 +23,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
 }, false);
 
+
+const getuserAction = (userid) => {
+    return function(dispatch) {
+        getuser(dispatch, userid)
+    }
+}
+
+const getuser = _.memoize(async (dispatch, userid) => {
+    let suer = await (await fetch()).json();
+    dispatch({
+        type : 'GET_USER',
+        payload : suer
+    })
+})

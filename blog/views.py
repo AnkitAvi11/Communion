@@ -119,26 +119,16 @@ def likeBlog(request) :
 def editBlog(request, blog_title) : 
     if request.method == 'POST' : 
         title = request.POST.get('title')
-        slug = slugify(title)
-
-        while Blog.objects.filter(slug_title=slug).exists() : 
-            randstr = random_string_generator(size=10)
-            slug = "{}-{}".format(slug, randstr)
-
         description = request.POST.get('description')
         body = request.POST.get('body')
-        cover_image = request.FILES.get('cover')
+    
         from datetime import datetime
         created_on = datetime.now()
 
-        Blog.objects.filter(slug_title=blog_title).update(title=title, slug_title=slug, description=description, created_on=created_on, body=body)
-
-        blog = Blog.objects.get(slug_title=slug)
-        blog.cover_image = cover_image
-        blog.save()
+        Blog.objects.filter(slug_title=blog_title).update(title=title, description=description, created_on=created_on, body=body)
 
         messages.success(request, 'Blog updated successfully')
-        return redirect('/blog/edit/{}/'.format(slug))
+        return redirect('/blog/edit/{}/'.format(blog_title))
 
     else : 
         blog = Blog.objects.get(slug_title__exact=blog_title)
@@ -155,3 +145,8 @@ def deleteBlog(request, blog_title) :
     blog = Blog.objects.get(user=request.user, slug_title__exact = blog_title)
     blog.delete()
     return redirect('/@{}/'.format(request.user.username))
+
+
+@login_required(login_url='/account/login/')
+def bookmarkBlog(request) : 
+    pass
